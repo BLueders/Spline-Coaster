@@ -19,9 +19,16 @@ namespace SplineCoaster
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont standartFont;
         Camera camera;
         Spline spline;
         Model sphere;
+       
+
+        //TEST
+        float rotation;
+        float mouseY;
+        float mouseX;
 
         public Game1()
         {
@@ -45,7 +52,11 @@ namespace SplineCoaster
             spline = new Spline(this, graphics,camera);
             
             Components.Add(spline);
-            //spline.Initialize();
+
+            //TEST
+            rotation = 0;
+            
+
             base.Initialize();
         }
 
@@ -60,6 +71,9 @@ namespace SplineCoaster
 
             sphere = Content.Load<Model>("Models\\sphere"); // Kann man das auch irgendwie in Spline tun??????
             spline.sphere = sphere; // Kann man das auch irgendwie in Spline tun??????
+
+            //Test
+            standartFont = Content.Load<SpriteFont>("SpriteFont1");
         }
 
         /// <summary>
@@ -83,6 +97,29 @@ namespace SplineCoaster
                 ButtonState.Pressed)
                 this.Exit();
 
+            float newMouseY = Mouse.GetState().Y;
+            float newMouseX = Mouse.GetState().X;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+            {
+                camera.Position = Vector3.Transform(camera.Position, Matrix.CreateRotationY((mouseX - newMouseX)*0.05f));
+                camera.Position = Vector3.Transform(camera.Position, Matrix.CreateRotationX((mouseY - newMouseY)*0.05f));
+                camera.Update();
+            }
+            mouseX = newMouseX;
+            mouseY = newMouseY;
+            
+
+            for (int i = 0; i < spline.splinePoints.Count; i++)
+            {
+                spline.SelectPoint(i);
+                spline.SetTangentRotation(new Vector3(rotation,rotation,rotation));
+            }
+
+            // noch radians!!!!
+            rotation+=0.01f;
+            rotation %= 360;
+            
+
 
             base.Update(gameTime);
         }
@@ -94,8 +131,9 @@ namespace SplineCoaster
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //spline.Draw(gameTime);
+            spriteBatch.Begin();
+                spriteBatch.DrawString(standartFont, rotation.ToString(), new Vector2(10, 10), Color.White);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

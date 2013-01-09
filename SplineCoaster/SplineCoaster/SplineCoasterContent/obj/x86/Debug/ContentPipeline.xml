@@ -67,6 +67,15 @@
       <Output>obj\x86\Debug\Models\sphere_0.xml</Output>
       <Time>2013-01-09T12:28:56.3484108+01:00</Time>
     </Item>
+    <Item>
+      <Source>SpriteFont1.spritefont</Source>
+      <Name>SpriteFont1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\SpriteFont1.xnb</Output>
+      <Time>2012-11-08T18:52:18+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
