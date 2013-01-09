@@ -1,0 +1,9 @@
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\SplineCoaster.exe
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\SplineCoaster.pdb
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\obj\x86\Debug\SplineCoaster.exe
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\obj\x86\Debug\SplineCoaster.pdb
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\Models\p1_wedge.xnb
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\Textures\wedge_p1_diff_v1.xnb
+D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\textures\wedge_p1_diff_v1_0.xnb
