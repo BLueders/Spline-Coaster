@@ -21,6 +21,7 @@ namespace SplineCoaster
         SpriteBatch spriteBatch;
         Camera camera;
         Spline spline;
+        Model sphere;
 
         public Game1()
         {
@@ -37,11 +38,12 @@ namespace SplineCoaster
         protected override void Initialize()
         {
             camera = new Camera(graphics.GraphicsDevice.Viewport);
-            camera.Position = new Vector3(0, 50, 5000);
+            camera.Position = new Vector3(0, 0, 100);
             camera.LookAt = new Vector3(0, 0, 0);
             camera.Update();
             
-            spline = new Spline(this, graphics);
+            spline = new Spline(this, graphics,camera);
+            
             Components.Add(spline);
             //spline.Initialize();
             base.Initialize();
@@ -56,10 +58,8 @@ namespace SplineCoaster
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            
+            sphere = Content.Load<Model>("Models\\sphere"); // Kann man das auch irgendwie in Spline tun??????
+            spline.sphere = sphere; // Kann man das auch irgendwie in Spline tun??????
         }
 
         /// <summary>

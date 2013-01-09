@@ -21,18 +21,20 @@ namespace SplineCoaster
         public ArrayList splinePoints;
         private int selectedPoint;
 
-        private Model sphere;
-        BasicEffect basicEffect;
+        public Model sphere;
+        BasicEffect basicSplineEffect;
         GraphicsDeviceManager graphics;
+        Camera camera;
 
         private VertexPositionColor[] drawPointList;
         private short[] lineStripIndices;
 
-        public Spline(Game game, GraphicsDeviceManager graphics)
+        public Spline(Game game, GraphicsDeviceManager graphics, Camera camera)
             : base(game)
         {
             // TODO: Construct any child components here
             this.graphics = graphics;
+            this.camera = camera;
         }
 
         /// <summary>
@@ -42,23 +44,20 @@ namespace SplineCoaster
         public override void Initialize()
         {
             float aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
-            basicEffect = new BasicEffect(this.graphics.GraphicsDevice);
-            basicEffect.VertexColorEnabled = true;
-            basicEffect.View = Matrix.CreateLookAt(new Vector3(0, 0, -10),
-                        Vector3.Zero, Vector3.Up);
-            basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45.0f), aspectRatio,
-                1.0f, 10000.0f);                                         // near, far plane
+            basicSplineEffect = new BasicEffect(this.graphics.GraphicsDevice);
+            basicSplineEffect.VertexColorEnabled = true;
+            basicSplineEffect.View = camera.ViewMatrix;
+            basicSplineEffect.Projection = camera.ProjectionMatrix;                                        // near, far plane
 
             splinePoints = new ArrayList();
 
             // Add Test Data
-            splinePoints.Add(new SplinePoint(new Vector3(3, 0, 0), new Vector3(0, 0, 1)));
-            splinePoints.Add(new SplinePoint(new Vector3(0, 3, 0), new Vector3(0, 0, 1)));
-            splinePoints.Add(new SplinePoint(new Vector3(2, 0, 0), new Vector3(0, 1, 0)));
-            splinePoints.Add(new SplinePoint(new Vector3(-5, -3, 0), new Vector3(0, 1, 0)));
-            splinePoints.Add(new SplinePoint(new Vector3(0, 4, 0), new Vector3(3, 0, 0)));
-            splinePoints.Add(new SplinePoint(new Vector3(0, 0, 0), new Vector3(0, 1, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(0, 0, 0), new Vector3(0, 10, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(-15, 0, 0), new Vector3(10, 0, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(20, 0, 0), new Vector3(0, 10, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(-20, -10, 0), new Vector3(0, 10, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(0, 20, 0), new Vector3(10, 0, 0)));
+            splinePoints.Add(new SplinePoint(new Vector3(30, 0, 0), new Vector3(0, 10, 0)));
             createNewDrawPointList();
             base.Initialize();
         }
@@ -121,7 +120,7 @@ namespace SplineCoaster
 
         public override void Draw(GameTime gameTime)
         {
-                basicEffect.CurrentTechnique.Passes[0].Apply();
+                basicSplineEffect.CurrentTechnique.Passes[0].Apply();
                 
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
                 PrimitiveType.LineStrip,
@@ -131,7 +130,74 @@ namespace SplineCoaster
                 lineStripIndices,  // the index buffer
                 0,  // first index element to read
                 lineStripIndices.Length-1   // number of primitives to draw
-            );
+                );
+
+                // Copy any parent transforms.
+                Matrix[] transforms = new Matrix[sphere.Bones.Count];
+                sphere.CopyAbsoluteBoneTransformsTo(transforms);
+                
+                // Draw all the Points
+            foreach(SplinePoint point in splinePoints)
+            {
+                // Draw the model. A model can have multiple meshes, so loop.
+                foreach (ModelMesh mesh in sphere.Meshes)
+                {
+                    // This is where the mesh orientation is set, as well 
+                    // as our camera and projection.
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index]
+                            * Matrix.CreateScale(new Vector3(0.015f, 0.015f, 0.015f))
+                            * Matrix.CreateTranslation(point.position);
+                        effect.View = camera.ViewMatrix;
+                        effect.Projection = camera.ProjectionMatrix;
+                    }
+                    // Draw the mesh, using the effects set above.
+                    mesh.Draw();
+
+                    // This is where the mesh orientation is set, as well 
+                    // as our camera and projection.
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index]
+                            * Matrix.CreateScale(new Vector3(0.01f, 0.01f, 0.01f))
+                            * Matrix.CreateTranslation(point.position+point.tangent);
+                        effect.View = camera.ViewMatrix;
+                        effect.Projection = camera.ProjectionMatrix;
+                    }
+                    // Draw the mesh, using the effects set above.
+                    mesh.Draw();
+
+                    // This is where the mesh orientation is set, as well 
+                    // as our camera and projection.
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index]
+                            * Matrix.CreateScale(new Vector3(0.01f, 0.01f, 0.01f))
+                            * Matrix.CreateTranslation(point.position - point.tangent);
+                        effect.View = camera.ViewMatrix;
+                        effect.Projection = camera.ProjectionMatrix;
+                    }
+                    // Draw the mesh, using the effects set above.
+                    mesh.Draw();
+                }
+
+                basicSplineEffect.CurrentTechnique.Passes[0].Apply();
+                VertexPositionColor[] line = new VertexPositionColor[3]{new VertexPositionColor(point.position-point.tangent,Color.Red),new VertexPositionColor(point.position,Color.Red),new VertexPositionColor(point.position+point.tangent,Color.Red)};
+                short[] indices = new short[3]{0,1,2};
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                PrimitiveType.LineStrip,
+                line,
+                0,  // vertex buffer offset to add to each element of the index buffer
+                3,  // number of vertices in pointList
+                indices,  // the index buffer
+                0,  // first index element to read
+                2   // number of primitives to draw
+                );
+            }
         }
 
         private void DrawSelection()

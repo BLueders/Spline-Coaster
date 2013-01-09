@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SplineCoaster
 {
-    class Camera
+    public class Camera
     {
         private Vector3 _position;
         private Vector3 _lookAt;

@@ -8,10 +8,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\Models\p1_wedge.xnb</Output>
-      <Time>2007-12-09T18:15:44+01:00</Time>
+      <Time>2013-01-09T12:21:18.9532493+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\p1_wedge_0.xml</Key>
-        <Value>2013-01-09T10:19:36.4267789+01:00</Value>
+        <Value>2013-01-09T12:37:19.3291796+01:00</Value>
       </Dependency>
       <Request>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\textures\wedge_p1_diff_v1_0.xnb</Request>
     </Item>
@@ -20,7 +20,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\p1_wedge_0.xml</Output>
-      <Time>2007-12-09T18:15:44+01:00</Time>
+      <Time>2013-01-09T12:21:18.9532493+01:00</Time>
     </Item>
     <Item>
       <Source>Textures\wedge_p1_diff_v1.tga</Source>
@@ -29,7 +29,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\Textures\wedge_p1_diff_v1.xnb</Output>
-      <Time>2007-12-09T18:15:44+01:00</Time>
+      <Time>2013-01-09T12:21:18.9722504+01:00</Time>
     </Item>
     <Item>
       <Source>textures\wedge_p1_diff_v1.tga</Source>
@@ -45,7 +45,27 @@
       </Parameters>
       <Options>None</Options>
       <Output>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\textures\wedge_p1_diff_v1_0.xnb</Output>
-      <Time>2007-12-09T18:15:44+01:00</Time>
+      <Time>2013-01-09T12:21:18.9722504+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\sphere.fbx</Source>
+      <Name>Models\sphere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Arbeit\Github\Spline-Coaster\SplineCoaster\SplineCoaster\SplineCoaster\bin\x86\Debug\Content\Models\sphere.xnb</Output>
+      <Time>2013-01-09T12:28:56.3484108+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\sphere_0.xml</Key>
+        <Value>2013-01-09T12:37:20.7972636+01:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\sphere.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\sphere_0.xml</Output>
+      <Time>2013-01-09T12:28:56.3484108+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
