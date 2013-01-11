@@ -27,8 +27,6 @@ namespace SplineCoaster
 
         //TEST
         float rotation;
-        float mouseY;
-        float mouseX;
 
         public Game1()
         {
@@ -96,23 +94,13 @@ namespace SplineCoaster
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back ==
                 ButtonState.Pressed)
                 this.Exit();
-
-            float newMouseY = Mouse.GetState().Y;
-            float newMouseX = Mouse.GetState().X;
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
-            {
-                camera.Position = Vector3.Transform(camera.Position, Matrix.CreateRotationY((mouseX - newMouseX)*0.05f));
-                camera.Position = Vector3.Transform(camera.Position, Matrix.CreateRotationX((mouseY - newMouseY)*0.05f));
-                camera.Update();
-            }
-            mouseX = newMouseX;
-            mouseY = newMouseY;
+            camera.Update();
             
 
             for (int i = 0; i < spline.splinePoints.Count; i++)
             {
                 spline.SelectPoint(i);
-                spline.SetTangentRotation(new Vector3(rotation,rotation,rotation));
+                //spline.SetTangentRotation(new Vector3(rotation,rotation,rotation));
             }
 
             // noch radians!!!!

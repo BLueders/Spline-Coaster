@@ -149,6 +149,7 @@ namespace SplineCoaster
         public void AddNewPoint()
         {
             splinePoints.Add(new SplinePoint(new Vector3(0, 0, 0), new Vector3(0, 0, 1)));
+            SelectPoint(splinePoints.Count - 1);
             createNewDrawPointList();
         }
 
